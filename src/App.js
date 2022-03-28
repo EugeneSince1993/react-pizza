@@ -6,9 +6,9 @@ function App() {
   return (
     <div className="wrapper">
       <Header />
-      <Button>Кнопка</Button>
+      <Button outline>Кнопка</Button>
       <Button>123</Button>
-      {/* 1.11.30 */}
+
       <div className="content">
         <div className="container">
           <div className="content__top">

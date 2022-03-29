@@ -1,13 +1,17 @@
 import React from 'react';
+import classNames from 'classnames';
 
-// classnames package installed, 1.18.40
-
-class Button extends React.Component {
-
-  render() {
-    return <button className={`button ${this.props.outline ? 'button--outline' : ''}`}>{this.props.children}</button>;
-  }
-
-}
+const Button = (props) => {
+  return (
+    <button 
+      className={classNames(
+        'button', 
+        { 'button--outline': props.outline }
+      )}
+    >
+      {props.children}
+    </button>
+  );
+};
 
 export default Button;

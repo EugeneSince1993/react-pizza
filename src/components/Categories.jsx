@@ -1,17 +1,34 @@
 import React from 'react';
 
-function Categories({ items }) {
-
-  return (
-    <div className="categories">
-      <ul>
-        <li className="active">Все</li>
-        { items.map((name, index) => (
-          <li onClick={() => alert(1)} key={`${name}_${index}`}>{name}</li>
-        )) }
-      </ul>
-    </div>
-  );
+class Categories extends React.Component {
+  render() {
+    const {items, onClickItem} = this.props;
+    // 1.24.05 l.3
+    return (
+      <div className="categories">
+        <ul>
+          <li className="active">Все</li>
+          { items.map((name, index) => (
+            <li onClick={() => onClickItem(name)} key={`${name}_${index}`}>{name}</li>
+          )) }
+        </ul>
+      </div>
+    );
+  }
 }
+
+// function Categories({ items, onClickItem }) {
+
+//   return (
+//     <div className="categories">
+//       <ul>
+//         <li className="active">Все</li>
+//         { items.map((name, index) => (
+//           <li onClick={() => onClickItem(name)} key={`${name}_${index}`}>{name}</li>
+//         )) }
+//       </ul>
+//     </div>
+//   );
+// }
 
 export default Categories;

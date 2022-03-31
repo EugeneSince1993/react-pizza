@@ -49,16 +49,18 @@ function Categories({ items, onClickItem }) {
         >
           Все
         </li>
-        {/* 02.05.03 l3 */}
-        { items.map((name, index) => (
-          <li 
-            className={activeItem === index ? 'active' : ''}
-            onClick={() => onSelectItem(index)} 
-            key={`${name}_${index}`}
-          >
-            {name}
-          </li>
-        )) }
+        { 
+        items &&
+          items.map((name, index) => (
+            <li 
+              className={activeItem === index ? 'active' : ''}
+              onClick={() => onSelectItem(index)} 
+              key={`${name}_${index}`}
+            >
+              {name}
+            </li>
+          ))
+        }
       </ul>
     </div>
   );

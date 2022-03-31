@@ -1,24 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function SortPopup() {
+function SortPopup({items}) {
   const [visiblePopup, setVisiblePopup] = useState(false);
-
   const sortRef = useRef();
+  const activeItem = 0;
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
   };
 
   const handleOutsideClick = (e) => {
-    console.log(e);
+    if (!e.path.includes(sortRef.current)) {
+      setVisiblePopup(false);
+    }
   };
 
   useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
-    console.log(sortRef.current);
   }, []);
-
-  // l4 1.07.55
 
   return (
     <div 
@@ -45,9 +44,19 @@ function SortPopup() {
         visiblePopup && (
           <div className="sort__popup">
             <ul>
-              <li className="active">популярности</li>
-              <li>цене</li>
-              <li>алфавиту</li>
+              {
+                items && (
+                  items.map((name, index) => (
+                    <li
+                      className={activeItem === index ? 'active' : ''} 
+                      key={`${name}_${index}`}
+                    >
+                      {name}
+                    </li>
+                  ))
+                )
+              }
+              {/* 1.23.55 l4 */}
             </ul>
           </div>
         )

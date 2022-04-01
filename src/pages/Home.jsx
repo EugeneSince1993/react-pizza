@@ -1,8 +1,6 @@
 import React from 'react';
 import { Categories, SortPopup } from '../components';
 
-// 1.46.50 l4
-
 function Home() {
   return (
     <div className="container">

@@ -6,6 +6,7 @@ import { Home, Cart } from './pages';
 import { Route } from 'react-router-dom';
 
 function App() {
+  // 21.40 fetch, useEffect
 
   return (
     <div className="wrapper">

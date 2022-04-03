@@ -6,7 +6,12 @@ import { Home, Cart } from './pages';
 import { Route } from 'react-router-dom';
 
 function App() {
-  // 21.40 fetch, useEffect
+  const [pizzas, setPizzas] = React.useState([]);
+  // l5 32.00
+
+  React.useEffect(() => {
+
+  }, []);
 
   return (
     <div className="wrapper">

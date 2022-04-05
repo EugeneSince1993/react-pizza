@@ -4,7 +4,7 @@ import pizzasReducer from './pizzas';
 
 const rootReducer = combineReducers({
   filters: filtersReducer,
-  // pizzas: pizzasReducer
+  pizzas: pizzasReducer
 });
 
 export default rootReducer;

@@ -6,5 +6,3 @@ const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && wi
 window.store = store;
 
 export default store;
-
-// l6 1.42.45

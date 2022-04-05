@@ -11,7 +11,7 @@ import { setPizzas } from './redux/actions/pizzas';
  
 //   React.useEffect(() => {
 //     axios.get('http://localhost:3000/db.json').then(({ data }) => {
-//       setPizzas(data.pizzas);
+//       setPizzasAction(data.pizzas);
 //     });
 //   }, []);
 
@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     axios.get('http://localhost:3000/db.json').then(({ data }) => {
-      window.store.dispatch(setPizzas(data.pizzas));
+      this.props.setPizzas(data.pizzas);
     });
   }
 
@@ -42,9 +42,17 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.pizzas.items
+    items: state.pizzas.items,
+    filters: state.filters
   };
 };
 
-export default connect(mapStateToProps)(App);
-// l6 02.03.30
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPizzas: (items) => dispatch(setPizzas(items))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+// l6 2.13.55
+

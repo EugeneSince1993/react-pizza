@@ -11,6 +11,7 @@ const categoryNames = [
   'Острые',
   'Закрытые'
 ];
+
 const sortItems = [
   {name: 'популярности', type: 'popular'}, 
   {name: 'цене', type: 'price'}, 
@@ -35,7 +36,8 @@ function Home() {
     <div className="container">
       <div className="content__top">
         <Categories activeCategory={category} onClickCategory={onSelectCategory} items={categoryNames} />
-        <SortPopup items={sortItems} />
+        <SortPopup activeSortType={sortBy} items={sortItems} />
+        {/* l8 1.49.45 */}
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

@@ -40,4 +40,3 @@ Categories.defaultProps = {
 };
 
 export default Categories;
-// l8 1.45.50

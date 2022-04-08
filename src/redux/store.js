@@ -9,4 +9,3 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 window.store = store;
 
 export default store;
-// l8 36.54

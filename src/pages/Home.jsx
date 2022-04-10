@@ -25,8 +25,8 @@ function Home() {
   const { category, sortBy } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
-    dispatch(fetchPizzas());
-  }, [category]);
+    dispatch(fetchPizzas(sortBy, category));
+  }, [category, sortBy]);
 
   const onSelectCategory = React.useCallback(index => {
     dispatch(setCategory(index));
@@ -55,4 +55,3 @@ function Home() {
 }
 
 export default Home;
-// l8 2.01.30

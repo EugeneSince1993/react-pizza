@@ -22,4 +22,3 @@ const cart = (state = initialState, action) => {
 };
 
 export default cart;
-// l9 54.40

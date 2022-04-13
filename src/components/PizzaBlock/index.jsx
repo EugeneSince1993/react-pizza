@@ -18,6 +18,11 @@ function PizzaBlock({ id, name, imageUrl, price, types, sizes, onClickAddPizza }
     setActiveSize(index);
   };
 
+  const onAddPizza = () => {
+    // l9 1.12.20
+    onClickAddPizza({ id, name, imageUrl, price });
+  };
+
   return (
     <div className="pizza-block">
       <img
@@ -58,7 +63,7 @@ function PizzaBlock({ id, name, imageUrl, price, types, sizes, onClickAddPizza }
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <Button onClick={() => onClickAddPizza({ id, name, imageUrl, price })} className="button--add" outline>
+        <Button onClick={onAddPizza} className="button--add" outline>
           <svg
             width="12"
             height="12"

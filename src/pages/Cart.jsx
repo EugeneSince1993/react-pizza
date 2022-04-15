@@ -1,7 +1,14 @@
 import React from 'react';
 import { CartItem } from '../components';
+import { useSelector } from 'react-redux';
 
 function Cart() {
+  const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart);
+
+  const addedPizzas = Object.keys(items).map(key => {
+    return items[key][0];
+  });
+
   return (
     <div className="container container--cart">
       <div className="cart">
@@ -26,13 +33,14 @@ function Cart() {
           </div>
         </div>
         <div className="content__items">
-          <CartItem />
-          {/* l10 24.05 */}
+          {addedPizzas.map(obj => (
+            <CartItem name={obj.name} type={obj.type} size={obj.size} totalPrice={null} />
+          ))}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
-            <span> Всего пицц: <b>3 шт.</b> </span>
-            <span> Сумма заказа: <b>900 ₽</b> </span>
+            <span> Всего пицц: <b>{totalCount} шт.</b> </span>
+            <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
           </div>
           <div className="cart__bottom-buttons">
             <a href="/" className="button button--outline button--add go-back-btn">

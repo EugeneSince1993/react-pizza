@@ -6,7 +6,7 @@ function Cart() {
   const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart);
 
   const addedPizzas = Object.keys(items).map(key => {
-    return items[key][0];
+    return items[key].items[0];
   });
 
   return (
@@ -34,7 +34,13 @@ function Cart() {
         </div>
         <div className="content__items">
           {addedPizzas.map(obj => (
-            <CartItem name={obj.name} type={obj.type} size={obj.size} totalPrice={null} />
+            <CartItem 
+              name={obj.name} 
+              type={obj.type} 
+              size={obj.size} 
+              totalPrice={items[obj.id].totalPrice} 
+              groupTotalCount={items[obj.id].items.length}
+            />
           ))}
         </div>
         <div className="cart__bottom">

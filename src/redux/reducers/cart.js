@@ -13,7 +13,6 @@ const cart = (state = initialState, action) => {
         !state.items[action.payload.id]
           ? [action.payload]
           : [...state.items[action.payload.id].items, action.payload]);
-      // l10 58.00
       const newItems = {
         ...state.items,
         [action.payload.id]: {

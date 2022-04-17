@@ -20,15 +20,30 @@ const cart = (state = initialState, action) => {
           totalPrice: getTotalPrice(currentPizzaItems)
         }
       };
-      const items = Object.values(newItems).map(obj => obj.items);
-      const allPizzas = [].concat.apply([], items);
-      const totalPrice = getTotalPrice(allPizzas);
-      // l10 1.54.50
+
+      // Instead of this I can use a get method in Lodash library
+
+      const _get = (obj, path) => {
+        const [firstKey, ...keys] = path.split('.');
+        return keys.reduce((val, key) => {
+          return val[key];
+        }, obj[firstKey]);
+      };
+
+      const getTotalSum = (obj, path) => {
+        return Object.values(obj).reduce((sum, obj) => {
+          const value = _get(obj, path);
+          return sum + value;
+        }, 0);
+      };
+
+      const totalCount = getTotalSum(newItems, 'items.length');
+      const totalPrice = getTotalSum(newItems, 'totalPrice');
 
       return {
         ...state,
         items: newItems,
-        totalCount: allPizzas.length,
+        totalCount,
         totalPrice
       };
     }

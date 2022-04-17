@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { CartItem } from '../components';
-import { clearCart } from '../redux/actions/cart';
+import { clearCart, removeCartItem } from '../redux/actions/cart';
 import cartEmptyImage from '../assets/img/empty-cart.png';
 
 function Cart() {
@@ -17,6 +17,12 @@ function Cart() {
   const onClearCart = () => {
     if (window.confirm("Вы действительно хотите очистить корзину?")) {
       dispatch(clearCart());
+    }
+  };
+
+  const onRemoveItem = (id) => {
+    if (window.confirm("Вы действительно хотите удалить?")) {
+      dispatch(removeCartItem(id));
     }
   };
 
@@ -54,6 +60,8 @@ function Cart() {
                   totalPrice={items[obj.id].totalPrice} 
                   totalCount={items[obj.id].items.length}
                   key={obj.id}
+                  onRemove={onRemoveItem}
+                  id={obj.id}
                 />
               ))}
             </div>
@@ -95,4 +103,3 @@ function Cart() {
 }
 
 export default Cart;
-// l10 1.24.00

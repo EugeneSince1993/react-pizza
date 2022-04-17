@@ -67,6 +67,11 @@ const cart = (state = initialState, action) => {
         totalPrice: state.totalPrice - currentTotalPrice,
         totalCount: state.totalCount - currentTotalCount
       };
+    case 'PLUS_CART_ITEM':
+      return {
+        ...state
+        // l10 02.43.50
+      };
     default:
       return state;  
   }

@@ -6,6 +6,22 @@ const initialState = {
 
 const getTotalPrice = arr => arr.reduce((sum, obj) => sum + obj.price, 0);
 
+// Instead of this I can use a get method in Lodash library
+
+const _get = (obj, path) => {
+  const [firstKey, ...keys] = path.split('.');
+  return keys.reduce((val, key) => {
+    return val[key];
+  }, obj[firstKey]);
+};
+
+const getTotalSum = (obj, path) => {
+  return Object.values(obj).reduce((sum, obj) => {
+    const value = _get(obj, path);
+    return sum + value;
+  }, 0);
+};
+
 const cart = (state = initialState, action) => {
   switch(action.type) {
     case 'ADD_PIZZA_CART': {
@@ -21,25 +37,49 @@ const cart = (state = initialState, action) => {
         }
       };
 
-      // Instead of this I can use a get method in Lodash library
-
-      const _get = (obj, path) => {
-        const [firstKey, ...keys] = path.split('.');
-        return keys.reduce((val, key) => {
-          return val[key];
-        }, obj[firstKey]);
-      };
-
-      const getTotalSum = (obj, path) => {
-        return Object.values(obj).reduce((sum, obj) => {
-          const value = _get(obj, path);
-          return sum + value;
-        }, 0);
-      };
-
       const totalCount = getTotalSum(newItems, 'items.length');
       const totalPrice = getTotalSum(newItems, 'totalPrice');
 
+      return {
+        ...state,
+        items: newItems,
+        totalCount,
+        totalPrice
+      };
+    }
+    case 'PLUS_CART_ITEM': {
+      const newObjItems = [
+        ...state.items[action.payload].items,
+        state.items[action.payload].items[0]
+      ];
+      const newItems = {
+        ...state.items,
+        [action.payload]: {
+          items: newObjItems,
+          totalPrice: getTotalPrice(newObjItems)
+        }
+      };
+      const totalCount = getTotalSum(newItems, 'items.length');
+      const totalPrice = getTotalSum(newItems, 'totalPrice');
+      return {
+        ...state,
+        items: newItems,
+        totalCount,
+        totalPrice
+      };
+    }
+    case 'MINUS_CART_ITEM': {
+      const oldItems = state.items[action.payload].items;
+      const newObjItems = oldItems.length > 1 ? state.items[action.payload].items.slice(1) : oldItems;
+      const newItems = {
+        ...state.items,
+        [action.payload]: {
+          items: newObjItems,
+          totalPrice: getTotalPrice(newObjItems)
+        }
+      };
+      const totalCount = getTotalSum(newItems, 'items.length');
+      const totalPrice = getTotalSum(newItems, 'totalPrice');
       return {
         ...state,
         items: newItems,
@@ -67,22 +107,6 @@ const cart = (state = initialState, action) => {
         totalPrice: state.totalPrice - currentTotalPrice,
         totalCount: state.totalCount - currentTotalCount
       };
-    }
-    case 'PLUS_CART_ITEM': {
-      const newItems = [
-        ...state.items[action.payload].items,
-        state.items[action.payload].items[0]
-      ];
-      return {
-        ...state,
-        items: {
-          [action.payload]: {
-            items: newItems,
-            totalPrice: getTotalPrice(newItems)
-          }
-        }
-      };
-      // l10 2.46.00
     }
     default:
       return state;  

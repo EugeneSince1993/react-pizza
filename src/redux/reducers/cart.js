@@ -54,7 +54,7 @@ const cart = (state = initialState, action) => {
         totalCount: 0,
         items: {}
       };
-    case 'REMOVE_CART_ITEM':
+    case 'REMOVE_CART_ITEM': {
       const newItems = {
         ...state.items
       };
@@ -67,11 +67,23 @@ const cart = (state = initialState, action) => {
         totalPrice: state.totalPrice - currentTotalPrice,
         totalCount: state.totalCount - currentTotalCount
       };
-    case 'PLUS_CART_ITEM':
+    }
+    case 'PLUS_CART_ITEM': {
+      const newItems = [
+        ...state.items[action.payload].items,
+        state.items[action.payload].items[0]
+      ];
       return {
-        ...state
-        // l10 02.43.50
+        ...state,
+        items: {
+          [action.payload]: {
+            items: newItems,
+            totalPrice: getTotalPrice(newItems)
+          }
+        }
       };
+      // l10 2.46.00
+    }
     default:
       return state;  
   }
